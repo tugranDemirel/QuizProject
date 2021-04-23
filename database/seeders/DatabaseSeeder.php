@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Question;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             UserSeeder::class,
             QuizSeeder::class,
+            QuesitonSeeder::class,
         ]);
     }
 }

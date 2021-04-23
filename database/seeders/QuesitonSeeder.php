@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class QuizSeeder extends Seeder
+class QuesitonSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class QuizSeeder extends Seeder
     public function run()
     {
         //
-        \App\Models\Quiz::factory(10)->create();
+        \App\Models\Question::factory(100)->create();
     }
 }
