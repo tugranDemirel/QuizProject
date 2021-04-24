@@ -12,6 +12,7 @@
                 <thead>
                 <tr>
                     <th scope="col">Quiz</th>
+                    <th scope="col">Soru Sayısı</th>
                     <th scope="col">Durum</th>
                     <th scope="col">Bitiş Tarihi</th>
                     <th scope="col">İşlemler</th>
@@ -21,9 +22,11 @@
                 @foreach($quizzes as $quiz)
                 <tr>
                     <td>{{$quiz->title}}</td>
+                    <td>{{$quiz->title}}</td>
                     <td>{{$quiz->status}}</td>
                     <td>{{$quiz->finished_at}}</td>
                     <td>
+                        <a title="Ayrıntı" href="{{route('questions.index',$quiz->id)}}" class="btn btn-info"><i class="fa fa-question"></i></a>
                         <a title="Düzenle" href="{{route('quizzes.edit',$quiz->id)}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
                         <a title="Sil" href="{{route('quizzes.destroy',$quiz->id)}}" class="btn btn-danger"><i class="fa fa-times"></i></a>
                     </td>
