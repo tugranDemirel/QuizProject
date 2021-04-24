@@ -17,8 +17,19 @@ class QuizController extends Controller
      */
     public function index()
     {
-        //
-        $quizzes = Quiz::paginate(10);
+
+        $quizzes = Quiz::withCount('questions');
+
+        // get ile parametre yakalama islemi
+        if (request()->get('title'))
+        {
+            $quizzes = $quizzes->where('title', 'LIKE' ,"% ".request()->get('title')." %");
+        }
+        if (request()->get('status'))
+        {
+            $quizzes = $quizzes->where('status', request()->get('status'));
+        }
+        $quizzes = $quizzes->paginate(5);
         return view('admin.quiz.list', compact('quizzes'));
     }
 
@@ -71,7 +82,7 @@ class QuizController extends Controller
     public function edit($id)
     {
         //
-        $quiz = Quiz::find($id) ?? abort(404, 'QUİZ BULUNAMADI');
+        $quiz = Quiz::withCount('questions')->find($id) ?? abort(404, 'QUİZ BULUNAMADI');
         return view('admin.quiz.edit', compact('quiz'));
     }
 
