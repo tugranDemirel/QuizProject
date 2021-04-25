@@ -9,7 +9,12 @@
                 <div class="row">
                     <div class="col-md-4">
                         <ul class="list-group mb-4">
-
+                            @if($quiz->my_rank)
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    Sıralamanız
+                                    <span class="badge badge-success badge-pill">{{ $quiz->my_rank }}</span>
+                                </li>
+                            @endif
                             @if($quiz->my_result)
                                 <li class="list-group-item d-flex justify-content-between align-items-center">
                                     Puan
@@ -48,8 +53,10 @@
                                     <ul class="list-gorup">
                                         @foreach($quiz->topTen as $result)
                                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                                <strong class="">{{$loop->iteration}}.</strong> <img src="{{asset($result->user->profile_photo_url)}}" width="50px;" alt="{{$result->user->name}}">
-                                                 {{$result->user->name}}<span class="badge badge-success badge-pill float-right">{{$result->point}}</span>
+                                                <strong class="">{{$loop->iteration}}.</strong>
+                                                <img class="float-left" src="{{asset($result->user->profile_photo_url)}}" width="50px;" alt="{{$result->user->name}}">
+                                                <span @if($result->user_id == auth()->user()->id) class="text-danger"@endif>{{$result->user->name}}</span>
+                                                <span class="badge badge-success badge-pill float-right">{{$result->point}}</span>
                                             </li>
                                         @endforeach
                                     </ul>

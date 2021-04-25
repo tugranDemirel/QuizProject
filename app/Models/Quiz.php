@@ -32,7 +32,13 @@ class Quiz extends Model
 
     protected $appends = [
         'details',
+        'my_rank',
     ];
+
+
+
+
+
 /**
  * Quiz tablosuna sanal olarak yeni bir alan olusturduk. Alan olusturma islemini yaparken basina
  * get sonuna ise buyuk harfle baslayan Attribute yaziyoruz. Ikisinin ortasinda kalan kisim ise
@@ -51,6 +57,18 @@ class Quiz extends Model
         }
 
         return null;
+    }
+
+    public function getMyRankAttribute()
+    {
+//        return $this->results()->where('user_id', auth()->user()->id)->first();
+        $rank = 0;
+        foreach ($this->results()->orderByDesc('point')->get() as $result)
+        {
+            $rank += 1;
+            if(auth()->user()->id == $result->user_id)
+                return $rank;
+        }
     }
 
     public function results()
