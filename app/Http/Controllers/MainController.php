@@ -12,8 +12,11 @@ class MainController extends Controller
     //
     public function dashboard()
     {
-        $quizzes = Quiz::where('status', 'publish')->withCount('questions')->paginate(10);
-        return view('dashboard', compact('quizzes'));
+        $results =  auth()->user()->results;
+        $quizzes = Quiz::where('status', 'publish')->where(function ($query){
+            $query->whereNull('finished_at')->orWhere('finished_at', '>', now());
+        })->withCount('questions')->paginate(10);
+        return view('dashboard', compact('quizzes', 'results'));
     }
     //
     public function quiz_detail($slug)
@@ -25,8 +28,12 @@ class MainController extends Controller
 
     public function quiz($slug)
     {
-        $quiz = Quiz::where('slug', $slug)->with('questions')->first() ?? abort(404, 'QUİZ BULUNAMADI');
 
+        $quiz = Quiz::where('slug', $slug)->with('questions.my_answer', 'my_result')->first() ?? abort(404, 'QUİZ BULUNAMADI');
+        if ($quiz->my_result)
+        {
+            return view('quiz_result', compact('quiz'));
+        }
         return view('quiz', compact('quiz'));
     }
 
