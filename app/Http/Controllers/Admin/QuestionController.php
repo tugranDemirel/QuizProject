@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Question;
 use App\Models\Quiz;
 use Illuminate\Http\Request;
-// calidate ayarlarini yaoptigim sayfasi import ettim
+// validate ayarlarini yaoptigim sayfasi import ettim
 use App\Http\Requests\QuestionCreateRequest;
 use App\Http\Requests\QuestionUpdateRequest;
 use Illuminate\Support\Str;
